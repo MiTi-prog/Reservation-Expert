@@ -15,6 +15,7 @@ namespace web
     {
         public static void Main(string[] args)
         {
+            //test
             var host = CreateHostBuilder(args).Build();
 
             CreateDbIfNotExists(host);
