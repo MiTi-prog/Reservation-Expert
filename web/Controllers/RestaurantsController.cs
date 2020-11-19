@@ -20,9 +20,58 @@ namespace web.Controllers
         }
 
         // GET: Restaurants
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(String sortOrder, String searchString)
         {
-            return View(await _context.Restaurants.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["LocationSortParm"] = sortOrder == "location" ? "location_desc" : "location";
+            ViewData["OpenSortParm"] = sortOrder == "open" ? "open_desc" : "open";
+            ViewData["CloseSortParm"] = sortOrder == "close" ? "close_desc" : "close";
+            ViewData["CurrentFilter"] = searchString;
+
+
+            var restaurants = from s in _context.Restaurants
+                        select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                 restaurants = restaurants.Where(s => s.NameOfRestaurant.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    restaurants = restaurants.OrderByDescending(s => s.NameOfRestaurant);
+                    break;
+
+
+                case "location":
+                    restaurants = restaurants.OrderBy(s => s.Location);
+                    break;
+                case "location_desc":
+                    restaurants = restaurants.OrderByDescending(s => s.Location);
+                    break;
+                
+
+                case "open":
+                    restaurants = restaurants.OrderBy(s => s.Open);
+                    break;
+                case "open_desc":
+                    restaurants = restaurants.OrderByDescending(s => s.Open);
+                    break;
+
+
+                case "close":
+                    restaurants = restaurants.OrderBy(s => s.Close);
+                    break;
+                case "close_dsc":
+                    restaurants = restaurants.OrderByDescending(s => s.Close);
+                    break;   
+
+                default:
+                    restaurants = restaurants.OrderBy(s => s.NameOfRestaurant);
+                    break;
+            }
+            return View(await restaurants.AsNoTracking().ToListAsync());
+
         }
 
         // GET: Restaurants/Details/5
