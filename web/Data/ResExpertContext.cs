@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace web.Data
 {
-    public class ResExpertContext : DbContext
+    public class ResExpertContext : IdentityDbContext<ApplicationUser>
     {
         public ResExpertContext(DbContextOptions<ResExpertContext> options) : base(options)
         {
@@ -16,6 +16,8 @@ namespace web.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder); // naknadno dodamo to je za Application Usserja
             // preimenujemo iz Guests v Guest nazaj
             modelBuilder.Entity<Guest>().ToTable("Guest");
             modelBuilder.Entity<Reservation>().ToTable("Reservation");

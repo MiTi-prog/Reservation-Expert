@@ -13,6 +13,10 @@ using web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 
+
+using web.Models; // dodamo knjiznice
+using Microsoft.AspNetCore.Identity; 
+
 namespace web
 {
     public class Startup
@@ -32,6 +36,14 @@ namespace web
             //Register the ResExpertContext as a Service 
             services.AddDbContext<ResExpertContext>(options =>
                                 options.UseSqlServer(Configuration.GetConnectionString("ResExpertContext"))); // tu morem dat DefaultConnection
+
+            // dodamo se to z stepom 6 
+            //dodamo to dvoje not pa tko definiramo 
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => 
+            options.Stores.MaxLengthForKeys = 128)
+            .AddEntityFrameworkStores<ResExpertContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();                     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +64,7 @@ namespace web
 
             app.UseRouting();
 
+            app.UseAuthentication(); // dodamo not pri Autentikaciji
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -59,6 +72,8 @@ namespace web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
+                endpoints.MapRazorPages(); /// dodamo end point za razer page za predizdelane login page etc
             });
         }
     }
