@@ -78,6 +78,7 @@ namespace web.Controllers
         }
 
         // GET: History/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,6 +101,7 @@ namespace web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id, [Bind("ReservationID,DateOfReservation,Duration,GuestID,TableID")] Reservation reservation)
         {
             if (id != reservation.ReservationID)
@@ -133,6 +135,7 @@ namespace web.Controllers
         }
 
         // GET: History/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,6 +158,7 @@ namespace web.Controllers
         // POST: History/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var reservation = await _context.Reservations.FindAsync(id);

@@ -114,7 +114,7 @@ namespace web.Data
             {
                 var password = new PasswordHasher<ApplicationUser>();
                 var hashed = password.HashPassword(user1,"Frijekul123$"); // geslo Hassed geslo 
-                user.PasswordHash = hashed;
+                user1.PasswordHash = hashed;
                 context.Users.Add(user1);
                 
             }
@@ -125,12 +125,12 @@ namespace web.Data
 //user
             var user2 = new ApplicationUser  // dodamo novega userja not pa 
             {
-                FirstName = "Mitja",
-                LastName = "Sepec",
-                Email = "mitja@fri.si",
-                NormalizedEmail = "XXXXdddddd@fri.si",
-                UserName = "mitja@fri.si",
-                NormalizedUserName = "mitja@fri.si",
+                FirstName = "Tim",
+                LastName = "Rus",
+                Email = "tim@fri.si",
+                NormalizedEmail = "XXXX@fri.si",
+                UserName = "tim@fri.si",
+                NormalizedUserName = "tim@fri.si",
                 MobileNumber = "031123456",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D")
@@ -140,13 +140,40 @@ namespace web.Data
             {
                 var password = new PasswordHasher<ApplicationUser>();
                 var hashed = password.HashPassword(user1,"Frijekul123$"); // geslo Hassed geslo 
-                user.PasswordHash = hashed;
+                user2.PasswordHash = hashed;
                 context.Users.Add(user2);
                 
             }
 
             context.SaveChanges(); // shranim spremembe v context
-            
+
+// var tabelca z rolei to damo no pa smo vsi veseli pa debeli 
+            var roles = new IdentityRole[] {
+                new IdentityRole{Id="1", Name="Administrator"},
+                new IdentityRole{Id="2", Name="Guest"},
+            };
+
+            foreach (IdentityRole r in roles)  // gremo cez z FOREAC stavkom pa dodajamo to sranje not pa smo veseli p
+            {
+                context.Roles.Add(r);
+            } 
+
+
+            var UserRoles = new IdentityUserRole<string>[]
+            {
+                new IdentityUserRole<string>{RoleId = roles[0].Id, UserId=user1.Id},
+                new IdentityUserRole<string>{RoleId = roles[1].Id, UserId=user2.Id},
+            };
+
+            foreach (IdentityUserRole<string> r in UserRoles)
+            {
+                context.UserRoles.Add(r);  // z zanko spet vse lepo dodam pol pa sam se lepo shranima pa je done deal
+            }
+
+
+            context.SaveChanges();  
+
+
         }
     }
 }

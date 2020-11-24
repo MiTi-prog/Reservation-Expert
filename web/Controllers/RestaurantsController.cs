@@ -96,7 +96,7 @@ namespace web.Controllers
         }
         
         // GET: Restaurants/Create
-        [Authorize] 
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -107,6 +107,7 @@ namespace web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create([Bind("RestaurantID,NameOfRestaurant,Location,TableCapacity,MobileNumber,Open,Close")] Restaurant restaurant)
         {
             if (ModelState.IsValid)
@@ -119,7 +120,7 @@ namespace web.Controllers
         }
 
         // GET: Restaurants/Edit/5
-        [Authorize] 
+       [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -138,7 +139,7 @@ namespace web.Controllers
         // POST: Restaurants/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize] 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RestaurantID,NameOfRestaurant,Location,TableCapacity,MobileNumber,Open,Close")] Restaurant restaurant)
@@ -172,7 +173,7 @@ namespace web.Controllers
         }
 
         // GET: Restaurants/Delete/5
-        [Authorize] 
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -193,7 +194,7 @@ namespace web.Controllers
         // POST: Restaurants/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize] 
+        [Authorize(Roles = "Administrator")] 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var restaurant = await _context.Restaurants.FindAsync(id);
