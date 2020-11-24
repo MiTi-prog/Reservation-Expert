@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>History Reservations</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -18,9 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Duration)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Guest)
-            </th>
+          <!--  <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th> -->
             <th>
                 @Html.DisplayNameFor(model => model.Table)
             </th>
@@ -37,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.Duration)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Guest.Email)
+                @Html.DisplayFor(modelItem => item.UserId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Table.TableID)

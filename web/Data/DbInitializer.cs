@@ -19,7 +19,7 @@ namespace web.Data
             }
 
 // Gosti -- oz to bi rad mel nekak not kot userje  
-            var guests = new Guest[]
+      /*      var guests = new Guest[]
             {
             new Guest{FirstName="Tim",LastName="Rus",Email="tim@fri.si", MobileNumber="031342123"},  // 1
             new Guest{FirstName="Mitja",LastName="Sepec",Email="mitja@fri.si", MobileNumber="041342123"}, // 2
@@ -36,14 +36,18 @@ namespace web.Data
 
 
             //DateOfReservation=DateTime.Parse("2020-12-01"),Duration=2, }, // yyyy-mm-dd
-
+    
+     RestaurantID=3,
+     
+     
+      */
 // Restavracije
             var restaurants = new Restaurant[]
             {
-            new Restaurant{RestaurantID=1,NameOfRestaurant="Restavracija 123", Location="Vecna pot 13, 1000 Ljublana",TableCapacity=3, MobileNumber="031987567",Open=8,Close=14},
-            new Restaurant{RestaurantID=2,NameOfRestaurant="Fontana", Location="Dalmatinova ulica 2, 8270 Krško",TableCapacity=2, MobileNumber="051987567",Open=8,Close=23},
-            new Restaurant{RestaurantID=3,NameOfRestaurant="Oštarija Margareta", Location="cesta julija 2, 8270 Krško",TableCapacity=2, MobileNumber="030987567",Open=9,Close=22},
-            new Restaurant{RestaurantID=4,NameOfRestaurant="Foculus", Location="Gregorčičeva ulica 3, 1000 Ljubljana",TableCapacity=4, MobileNumber="051987567",Open=9,Close=23}
+            new Restaurant{NameOfRestaurant="Restavracija 123", Location="Vecna pot 13, 1000 Ljublana",TableCapacity=3, MobileNumber="031987567",Open=8,Close=14},
+            new Restaurant{NameOfRestaurant="Fontana", Location="Dalmatinova ulica 2, 8270 Krško",TableCapacity=2, MobileNumber="051987567",Open=8,Close=23},
+            new Restaurant{NameOfRestaurant="Oštarija Margareta", Location="cesta julija 2, 8270 Krško",TableCapacity=2, MobileNumber="030987567",Open=9,Close=22},
+            new Restaurant{NameOfRestaurant="Foculus", Location="Gregorčičeva ulica 3, 1000 Ljubljana",TableCapacity=4, MobileNumber="051987567",Open=9,Close=23}
             };
             foreach (Restaurant r in restaurants)
             {
@@ -75,26 +79,6 @@ namespace web.Data
                 context.Tables.Add(e);
             }
             context.SaveChanges();
-
-
-// Rezervacije
-            string s1 = "2020-12-21 13:26";
-            string s2 = "2020-12-18 12:23";
-
-            var reservations = new Reservation[]
-            {
-                                                           // year, month, day, hour, min
-            new Reservation{DateOfReservation = DateTime.Parse(s1),Duration=2,GuestID=1,TableID=12},  
-            new Reservation{DateOfReservation = DateTime.Parse(s2),Duration=1,GuestID=2,TableID=23},
-        
-            };
-
-            foreach (Reservation s in reservations)
-            {
-                context.Reservations.Add(s);
-            }
-            context.SaveChanges();
-
 
 //user1 
             var user1 = new ApplicationUser  // dodamo novega userja not pa 
@@ -146,6 +130,28 @@ namespace web.Data
             }
 
             context.SaveChanges(); // shranim spremembe v context
+
+
+// Rezervacije
+            string s1 = "2020-12-21 13:26";
+            string s2 = "2020-12-18 12:23";
+
+            var reservations = new Reservation[]
+            {
+                                                           // year, month, day, hour, min
+            new Reservation{DateOfReservation = DateTime.Parse(s1),Duration=2,UserId=user2.Id,TableID=12},  
+            new Reservation{DateOfReservation = DateTime.Parse(s2),Duration=1,UserId=user1.Id,TableID=23},
+        
+            };
+
+            foreach (Reservation s in reservations)
+            {
+                context.Reservations.Add(s);
+            }
+            context.SaveChanges();
+
+
+
 
 // var tabelca z rolei to damo no pa smo vsi veseli pa debeli 
             var roles = new IdentityRole[] {

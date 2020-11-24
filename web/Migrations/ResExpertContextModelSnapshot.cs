@@ -97,10 +97,12 @@ namespace web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -137,10 +139,12 @@ namespace web.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -229,36 +233,6 @@ namespace web.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("web.Models.Guest", b =>
-                {
-                    b.Property<int>("GuestID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("MobileNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GuestID");
-
-                    b.ToTable("Guest");
-                });
-
             modelBuilder.Entity("web.Models.Reservation", b =>
                 {
                     b.Property<int>("ReservationID")
@@ -266,21 +240,24 @@ namespace web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("DateOfReservation")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<int>("GuestID")
-                        .HasColumnType("int");
-
                     b.Property<int>("TableID")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ReservationID");
 
-                    b.HasIndex("GuestID");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("TableID")
                         .IsUnique();
@@ -291,7 +268,9 @@ namespace web.Migrations
             modelBuilder.Entity("web.Models.Restaurant", b =>
                 {
                     b.Property<int>("RestaurantID")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Close")
                         .HasColumnType("int");
@@ -394,11 +373,9 @@ namespace web.Migrations
 
             modelBuilder.Entity("web.Models.Reservation", b =>
                 {
-                    b.HasOne("web.Models.Guest", "Guest")
+                    b.HasOne("web.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Reservations")
-                        .HasForeignKey("GuestID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("web.Models.Table", "Table")
                         .WithOne("Reservation")
