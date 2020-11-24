@@ -8,8 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
 
+using Microsoft.AspNetCore.Authorization; // zapremo History
+using Microsoft.AspNetCore.Identity; // to je pa za ownerja  
+
+
 namespace web.Controllers
 {
+    [Authorize] // nad controlerjem damo authorize da nemors kr dostopada da se mors prvo prajvit
     public class HistoryController : Controller
     {
         private readonly ResExpertContext _context;
