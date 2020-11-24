@@ -21,7 +21,8 @@ namespace web.Models
         //012345678, 012-345-678, (012)-345-678, (012)345678 012 345678, 012 345 678, 012 345-678, (012) 345-678, 012.345.678 opcije kako lahko zapisemo telefonsko
         public string MobileNumber {get; set;}
         
-
+      //  // ni nobenih tujih kljucev ne nc ne tak da je tuki vse kul sam to povezavo mamo 
+      //  public ICollection<Reservation> Reservations { get; set; } // povezava 1 to N na Rezervacijo bi delat tut 0 to N ker gre za foro z podatkovnimi stvarmi 
     }
     
 }

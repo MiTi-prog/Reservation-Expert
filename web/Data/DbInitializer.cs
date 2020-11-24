@@ -78,7 +78,6 @@ namespace web.Data
 
 
 // Rezervacije
-
             string s1 = "2020-12-21 13:26";
             string s2 = "2020-12-18 12:23";
 
@@ -95,6 +94,31 @@ namespace web.Data
                 context.Reservations.Add(s);
             }
             context.SaveChanges();
+
+            var user = new ApplicationUser  // dodamo novega userja not pa 
+            {
+                FirstName = "Mitja",
+                LastName = "Sepec",
+                Email = "mitja@fri.si",
+                NormalizedEmail = "XXXX@fri.si",
+                UserName = "mitja@fri.si",
+                NormalizedUserName = "mitja@fri.si",
+                MobileNumber = "041123456",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+
+            if (!context.Users.Any(u => u.UserName == user.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>();
+                var hashed = password.HashPassword(user,"Frijekul123$"); // geslo Hassed geslo 
+                user.PasswordHash = hashed;
+                context.Users.Add(user);
+                
+            }
+
+            context.SaveChanges(); // shranim spremembe v context
+
 
         }
     }

@@ -5,12 +5,10 @@ using System.ComponentModel.DataAnnotations; // checker za correct mail
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace web.Models
 {
     public class Restaurant
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)] // za generatanje
         public int RestaurantID { get; set; }
         
         public string NameOfRestaurant { get; set; }

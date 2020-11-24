@@ -13,9 +13,9 @@ namespace web.Models
         public int Duration { get; set; } // kako dolgo mislmo bit v restavraciji
 
 //tuji kluci 
-        public int TableID { get; set; }
         public int GuestID { get; set; }
-
+        public int TableID { get; set; }
+       
 // povezave 
         public Guest Guest { get; set; } // povezava 1 na 1 na Guesta
         public Table Table { get; set; } // povezava 1 na 1 na Table 
