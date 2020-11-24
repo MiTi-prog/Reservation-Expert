@@ -9,19 +9,85 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: #f1595b;
+}
+a:hover {
+  color: #4a4d50 !important;
+  text-decoration: none !important;
 }
 
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color:#f1595b;
+  border-color:#f1595b;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color:#f1595b;
+  border-color:#f1595b;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #f1595b !important;
+  border-color: #f1595b !important;
+}
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem #f1595b57;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+  box-shadow: 0 0 0 0.2rem #f1595b57;
+}
+.btn-primary.focus, .btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem #f1595b57;
 }
 
+.logotip {
+  height:195px;
+  margin:5px;
+  width:175px;
+}
+
+/* navigation menus */
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color: #f1595b;
+  border-color: #f1595b;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  font-size: 22px;
+}
+
+/* responsive */
+@media screen and (max-width: 600px) {
+  .reserve {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .navbar-nav {
+    width: 100%;
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+}
+
+/* homepage */
+
+.row_home {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.reserve_left, .reserve_right {
+  flex: 50%;
+}
+
+.reserve_right {
+  padding-left: 100px;
 }
 
 /* Sticky footer styles
@@ -68,4 +134,46 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+/* login&registration site */
+.row_login, .row_register {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#tit_login, #tit_register {
+  text-align: center;
+}
+
+.foot {
+  display: flex;
+  justify-content: center;
+}
+
+.login-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #f1595b;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem #f1595b57;
+}
+
+.btn.btn-primary.register {
+  display: flex;
+  margin: 0 auto;
+}
+
+h4#sub_title_register, h4#sub_title_register {
+  text-align: center;
+}
+
+.login-bottom {
+  text-align: center;
 }
