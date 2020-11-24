@@ -95,12 +95,14 @@ namespace web.Data
             }
             context.SaveChanges();
 
-            var user = new ApplicationUser  // dodamo novega userja not pa 
+
+//user1 
+            var user1 = new ApplicationUser  // dodamo novega userja not pa 
             {
                 FirstName = "Mitja",
                 LastName = "Sepec",
                 Email = "mitja@fri.si",
-                NormalizedEmail = "XXXX@fri.si",
+                NormalizedEmail = "XXXXdddddd@fri.si",
                 UserName = "mitja@fri.si",
                 NormalizedUserName = "mitja@fri.si",
                 MobileNumber = "041123456",
@@ -108,18 +110,43 @@ namespace web.Data
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
 
-            if (!context.Users.Any(u => u.UserName == user.UserName))
+            if (!context.Users.Any(u => u.UserName == user1.UserName))
             {
                 var password = new PasswordHasher<ApplicationUser>();
-                var hashed = password.HashPassword(user,"Frijekul123$"); // geslo Hassed geslo 
+                var hashed = password.HashPassword(user1,"Frijekul123$"); // geslo Hassed geslo 
                 user.PasswordHash = hashed;
-                context.Users.Add(user);
+                context.Users.Add(user1);
                 
             }
 
             context.SaveChanges(); // shranim spremembe v context
 
 
+//user
+            var user2 = new ApplicationUser  // dodamo novega userja not pa 
+            {
+                FirstName = "Mitja",
+                LastName = "Sepec",
+                Email = "mitja@fri.si",
+                NormalizedEmail = "XXXXdddddd@fri.si",
+                UserName = "mitja@fri.si",
+                NormalizedUserName = "mitja@fri.si",
+                MobileNumber = "031123456",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+
+            if (!context.Users.Any(u => u.UserName == user2.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>();
+                var hashed = password.HashPassword(user1,"Frijekul123$"); // geslo Hassed geslo 
+                user.PasswordHash = hashed;
+                context.Users.Add(user2);
+                
+            }
+
+            context.SaveChanges(); // shranim spremembe v context
+            
         }
     }
 }
