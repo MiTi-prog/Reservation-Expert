@@ -11,10 +11,9 @@ using web.Models;
 using Microsoft.AspNetCore.Authorization; // zapremo History
 using Microsoft.AspNetCore.Identity; // to je pa za ownerja  
 
-
 namespace web.Controllers
 {
-    [Authorize] // nad controlerjem damo authorize da nemors kr dostopada da se mors prvo prajvit
+    [Authorize]
     public class HistoryController : Controller
     {
         private readonly ResExpertContext _context;
@@ -27,7 +26,7 @@ namespace web.Controllers
         // GET: History
         public async Task<IActionResult> Index()
         {
-            var resExpertContext = _context.Reservations.Include(r => r.Guest).Include(r => r.Table);
+            var resExpertContext = _context.Reservations.Include(r => r.Table);
             return View(await resExpertContext.ToListAsync());
         }
 
@@ -40,7 +39,6 @@ namespace web.Controllers
             }
 
             var reservation = await _context.Reservations
-                .Include(r => r.Guest)
                 .Include(r => r.Table)
                 .FirstOrDefaultAsync(m => m.ReservationID == id);
             if (reservation == null)
@@ -52,9 +50,9 @@ namespace web.Controllers
         }
 
         // GET: History/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
-            ViewData["GuestID"] = new SelectList(_context.Guests, "GuestID", "Email");
             ViewData["TableID"] = new SelectList(_context.Tables, "TableID", "TableID");
             return View();
         }
@@ -64,7 +62,8 @@ namespace web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReservationID,DateOfReservation,Duration,GuestID,TableID")] Reservation reservation)
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Create([Bind("ReservationID,DateOfReservation,Duration,UserId,TableID")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +71,6 @@ namespace web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GuestID"] = new SelectList(_context.Guests, "GuestID", "Email", reservation.GuestID);
             ViewData["TableID"] = new SelectList(_context.Tables, "TableID", "TableID", reservation.TableID);
             return View(reservation);
         }
@@ -91,7 +89,6 @@ namespace web.Controllers
             {
                 return NotFound();
             }
-            ViewData["GuestID"] = new SelectList(_context.Guests, "GuestID", "Email", reservation.GuestID);
             ViewData["TableID"] = new SelectList(_context.Tables, "TableID", "TableID", reservation.TableID);
             return View(reservation);
         }
@@ -102,7 +99,7 @@ namespace web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Edit(int id, [Bind("ReservationID,DateOfReservation,Duration,GuestID,TableID")] Reservation reservation)
+        public async Task<IActionResult> Edit(int id, [Bind("ReservationID,DateOfReservation,Duration,UserId,TableID")] Reservation reservation)
         {
             if (id != reservation.ReservationID)
             {
@@ -129,7 +126,6 @@ namespace web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GuestID"] = new SelectList(_context.Guests, "GuestID", "Email", reservation.GuestID);
             ViewData["TableID"] = new SelectList(_context.Tables, "TableID", "TableID", reservation.TableID);
             return View(reservation);
         }
@@ -144,7 +140,6 @@ namespace web.Controllers
             }
 
             var reservation = await _context.Reservations
-                .Include(r => r.Guest)
                 .Include(r => r.Table)
                 .FirstOrDefaultAsync(m => m.ReservationID == id);
             if (reservation == null)

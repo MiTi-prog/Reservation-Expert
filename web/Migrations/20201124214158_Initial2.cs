@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace web.Migrations
 {
-    public partial class ApplicationUser : Migration
+    public partial class Initial2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,24 @@ namespace web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Restaurant",
+                columns: table => new
+                {
+                    RestaurantID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NameOfRestaurant = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    TableCapacity = table.Column<int>(nullable: false),
+                    MobileNumber = table.Column<string>(nullable: false),
+                    Open = table.Column<int>(nullable: false),
+                    Close = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Restaurant", x => x.RestaurantID);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,8 +113,8 @@ namespace web.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -140,8 +158,8 @@ namespace web.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -152,6 +170,56 @@ namespace web.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Table",
+                columns: table => new
+                {
+                    TableID = table.Column<int>(nullable: false),
+                    MinSize = table.Column<int>(nullable: false),
+                    MaxSize = table.Column<int>(nullable: false),
+                    Online = table.Column<int>(nullable: false),
+                    RestaurantID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Table", x => x.TableID);
+                    table.ForeignKey(
+                        name: "FK_Table_Restaurant_RestaurantID",
+                        column: x => x.RestaurantID,
+                        principalTable: "Restaurant",
+                        principalColumn: "RestaurantID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservation",
+                columns: table => new
+                {
+                    ReservationID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateOfReservation = table.Column<DateTime>(nullable: false),
+                    Duration = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    TableID = table.Column<int>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservation", x => x.ReservationID);
+                    table.ForeignKey(
+                        name: "FK_Reservation_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservation_Table_TableID",
+                        column: x => x.TableID,
+                        principalTable: "Table",
+                        principalColumn: "TableID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -193,6 +261,22 @@ namespace web.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservation_ApplicationUserId",
+                table: "Reservation",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservation_TableID",
+                table: "Reservation",
+                column: "TableID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Table_RestaurantID",
+                table: "Table",
+                column: "RestaurantID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -213,10 +297,19 @@ namespace web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Reservation");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Table");
+
+            migrationBuilder.DropTable(
+                name: "Restaurant");
         }
     }
 }

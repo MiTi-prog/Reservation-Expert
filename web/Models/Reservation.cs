@@ -13,11 +13,11 @@ namespace web.Models
         public int Duration { get; set; } // kako dolgo mislmo bit v restavraciji
 
 //tuji kluci 
-        public int GuestID { get; set; }
+        public string UserId { get; set; }  /// tu sem dal int namest navchar
         public int TableID { get; set; }
        
 // povezave 
-        public Guest Guest { get; set; } // povezava 1 na 1 na Guesta
+        public ApplicationUser ApplicationUser { get; set; } // povezava 1 na 1 na Guesta
         public Table Table { get; set; } // povezava 1 na 1 na Table 
     }
 }
