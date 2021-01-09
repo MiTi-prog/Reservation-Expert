@@ -43,7 +43,8 @@ namespace web
             options.Stores.MaxLengthForKeys = 128)
             .AddEntityFrameworkStores<ResExpertContext>()
             .AddDefaultUI()
-            .AddDefaultTokenProviders();                     
+            .AddDefaultTokenProviders();        
+            services.AddSwaggerGen();      //dodano za Api dokumentacijo      
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +75,12 @@ namespace web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 
                 endpoints.MapRazorPages(); /// dodamo end point za razer page za predizdelane login page etc
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/api/v1/swagger.json", "My API V1");
             });
         }
     }
