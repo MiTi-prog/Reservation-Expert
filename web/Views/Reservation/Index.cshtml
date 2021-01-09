@@ -6,7 +6,9 @@
 
 <h1>Index</h1>
 
-
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -14,15 +16,14 @@
                 @Html.DisplayNameFor(model => model.DateOfReservation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Duration) in hours
+                @Html.DisplayNameFor(model => model.Duration)
             </th>
-           <th>
+            <th>
                 @Html.DisplayNameFor(model => model.UserId)
-            </th> 
-            <!--
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Table)
-            </th> -->
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -38,12 +39,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>
-           <!-- <td>
-                @Html.DisplayFor(modelItem => item.Table.TableID)
-            </td> -->
-        
             <td>
-                <a asp-action="Details" asp-route-id="@item.ReservationID">Details</a>
+                @Html.DisplayFor(modelItem => item.Table.TableID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ReservationID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ReservationID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ReservationID">Delete</a>
             </td>
         </tr>
 }

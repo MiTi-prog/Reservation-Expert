@@ -13,7 +13,8 @@
         </div>
         <div class="reserve_right">
             <p>Make your reservation with click on the button below.</p>
-           <button type="submit" class="btn btn-primary">Reserve table</button>     
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Reservation")';return false;">Reserve table</button>
+           <!--<button type="button" class="btn btn-primary" id="reserveButton">Reserve table</button>-->     
         </div>
     </div>
 </div>

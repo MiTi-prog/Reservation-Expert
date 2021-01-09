@@ -7,30 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
-
 using Microsoft.AspNetCore.Authorization; // zapremo History
-using Microsoft.AspNetCore.Identity; // to je pa za ownerja  
 
 namespace web.Controllers
 {
     [Authorize]
-    public class HistoryController : Controller
+    public class ReservationController : Controller
     {
         private readonly ResExpertContext _context;
 
-        public HistoryController(ResExpertContext context)
+        public ReservationController(ResExpertContext context)
         {
             _context = context;
         }
 
-        // GET: History
+        // GET: Reservation
         public async Task<IActionResult> Index()
         {
             var resExpertContext = _context.Reservations.Include(r => r.Table);
             return View(await resExpertContext.ToListAsync());
         }
 
-        // GET: History/Details/5
+        // GET: Reservation/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,21 +47,18 @@ namespace web.Controllers
             return View(reservation);
         }
 
-/*
-        // GET: History/Create
-        [Authorize(Roles = "Administrator")]
+        // GET: Reservation/Create
         public IActionResult Create()
         {
             ViewData["TableID"] = new SelectList(_context.Tables, "TableID", "TableID");
             return View();
         }
 
-        // POST: History/Create
+        // POST: Reservation/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create([Bind("ReservationID,DateOfReservation,Duration,UserId,TableID")] Reservation reservation)
         {
             if (ModelState.IsValid)
@@ -76,8 +71,7 @@ namespace web.Controllers
             return View(reservation);
         }
 
-        // GET: History/Edit/5
-        [Authorize(Roles = "Administrator")]
+        // GET: Reservation/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,12 +88,11 @@ namespace web.Controllers
             return View(reservation);
         }
 
-        // POST: History/Edit/5
+        // POST: Reservation/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id, [Bind("ReservationID,DateOfReservation,Duration,UserId,TableID")] Reservation reservation)
         {
             if (id != reservation.ReservationID)
@@ -131,8 +124,7 @@ namespace web.Controllers
             return View(reservation);
         }
 
-        // GET: History/Delete/5
-        [Authorize(Roles = "Administrator")]
+        // GET: Reservation/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -151,10 +143,9 @@ namespace web.Controllers
             return View(reservation);
         }
 
-        // POST: History/Delete/5
+        // POST: Reservation/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var reservation = await _context.Reservations.FindAsync(id);
@@ -166,6 +157,6 @@ namespace web.Controllers
         private bool ReservationExists(int id)
         {
             return _context.Reservations.Any(e => e.ReservationID == id);
-        }*/
+        }
     }
 }
