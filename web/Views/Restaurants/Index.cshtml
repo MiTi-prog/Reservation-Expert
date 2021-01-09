@@ -23,12 +23,7 @@
 
 <table class="table">
     <thead>
-            string selectedRow = "";
-            if (item.ID == (int?)ViewData["InstructorID"])
-            {
-                selectedRow = "table-success";
-            }
-            <tr class="@selectedRow">
+        <tr>
                <th>
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.NameOfRestaurant)</a>
                 </th>
@@ -72,7 +67,6 @@
                 @Html.DisplayFor(modelItem => item.Close)
             </td>
             <td>
-                <a asp-action="Index" asp-route-id="@item.RestaurantID">Select</a> |
                 <a asp-action="Edit" asp-route-id="@item.RestaurantID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.RestaurantID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.RestaurantID">Delete</a>
