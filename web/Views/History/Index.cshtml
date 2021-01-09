@@ -1,11 +1,11 @@
-@model IEnumerable<web.Models.Reservation>
 
+@model IEnumerable<web.Models.Reservation>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>History of reservations</h1>
+<br>
 
 <table class="table">
     <thead>
@@ -16,13 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Duration) in hours
             </th>
-           <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th> 
-            <!--
             <th>
                 @Html.DisplayNameFor(model => model.Table)
-            </th> -->
+            </th> 
             <th></th>
         </tr>
     </thead>
@@ -36,12 +32,8 @@
                 @Html.DisplayFor(modelItem => item.Duration)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-           <!-- <td>
                 @Html.DisplayFor(modelItem => item.Table.TableID)
-            </td> -->
-        
+            </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.ReservationID">Details</a>
             </td>
