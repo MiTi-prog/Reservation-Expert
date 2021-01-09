@@ -35,7 +35,7 @@ namespace web
 
             //Register the ResExpertContext as a Service 
             services.AddDbContext<ResExpertContext>(options =>
-                                options.UseSqlServer(Configuration.GetConnectionString("ResExpertContext"))); // tu morem dat DefaultConnection
+                                options.UseSqlServer(Configuration.GetConnectionString("AzureResExpert"))); // tukaj lahko spremenimo na lokalno
 
             // dodamo se to z stepom 6 
             //dodamo to dvoje not pa tko definiramo 
