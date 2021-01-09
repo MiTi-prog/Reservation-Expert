@@ -5,10 +5,10 @@
 }
 
 <h1>Restaurants</h1>
-
-<p>
+<br>
+<!--<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>-->
 
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
@@ -75,3 +75,6 @@
 }
     </tbody>
 </table>
+
+<br>
+<button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Restaurants")';return false;">Reserve table</button>

@@ -1,12 +1,14 @@
-
 @model IEnumerable<web.Models.Reservation>
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>History of reservations</h1>
+<h1>Reservation</h1>
 <br>
-
+<!--<p>
+    <a asp-action="Create">Create New</a>
+</p>-->
 <table class="table">
     <thead>
         <tr>
@@ -14,15 +16,16 @@
                 @Html.DisplayNameFor(model => model.DateOfReservation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Duration) in hours
+                @Html.DisplayNameFor(model => model.Duration)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Table)
-            </th> 
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -35,9 +38,15 @@
                 @Html.DisplayFor(modelItem => item.Table.TableID)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.ReservationID">Details</a>
+                <a asp-action="Edit" asp-route-id="@item.ReservationID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ReservationID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ReservationID">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<br>
+<button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Reservation")';return false;">Reserve table</button>
+
