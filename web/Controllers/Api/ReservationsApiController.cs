@@ -7,22 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
+using web.Filters;
 
 namespace web.Controllers_Api
 {
     [Route("api/v1/Reservation")]
     [ApiController]
+    [ApiKeyAuth]
     public class ReservationsApiController : ControllerBase
     {
         private readonly ResExpertContext _context;
 
         public ReservationsApiController(ResExpertContext context)
-        {
+        { 
             _context = context;
         }
 
         // GET: api/ReservationsApi
         [HttpGet]
+        
         public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations()
         {
             return await _context.Reservations.ToListAsync();
