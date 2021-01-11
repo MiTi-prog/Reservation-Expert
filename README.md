@@ -5,6 +5,6 @@ Timotej Tim Rus - 63180256, Mitja Šepec - 63180274<br><br>
 
 Zraven pa se pojavlja problem da ne dobimo zmeraj najboljše mize pri že uveljavljenih platformah, ki ponujajo samo expresno rezervacijo mize (Resy, OpenTable, Tock, itd), pri čemer bo gost lahko prosto izbral mizo po lastni želji glede na to kje bi želel sedeti.
 
-Z informacijskim sistemom Reservation Expert bova podprla spletno in mobilno rezervacijo in plačilo miz v željeni restavraciji. Gost bo lahko sam določil čas in datum prihoda in rezerviral mizo po želji, če bo le ta še prosta. 
+Z informacijskim sistemom Reservation Expert bova podprla spletno rezervacijo miz v željeni restavraciji. Gost bo lahko sam določil čas in datum prihoda in rezerviral mizo po želji, če bo le ta še prosta. 
 
 </span>
